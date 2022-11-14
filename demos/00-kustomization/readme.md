@@ -1,0 +1,4 @@
+- Enter `example/overlay` and run `kubectl kustomize`
+- Enter `example/base` and run `kubectl kustomize`
+- Compare result
+- Run apply `kubectl apply -k`

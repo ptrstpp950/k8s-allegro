@@ -1,0 +1,19 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: simple-pv-pod
+  labels:
+    wokrshop: "true"
+spec:
+  volumes:
+  - name: simple-pv-storage
+    persistentVolumeClaim:
+      claimName: simple-pv-claim
+  containers:
+  - name: simple-pv-container
+    image: nginx
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: simple-pv-storage

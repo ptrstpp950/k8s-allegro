@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: dumpster-dep
+  labels:
+    workshop: "true"
+    app: dumpster
+spec:
+  selector:
+    matchLabels:
+    
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: dumpster-pod-container
+        image: gutek/dumpster:v1
+        ports:
+        - containerPort: 8080

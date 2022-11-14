@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dumpster-ss-svc
+  labels:
+    app: dumpster
+    workshop: "true"
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: dumpster-ss-pod
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dumpster-ss
+spec:
+  selector:
+    matchLabels:
+      app: dumpster-ss-pod
+  serviceName: "dumpster-ss-svc"
+  replicas: 3 
+  template:
+    metadata:
+      labels:
+        app: dumpster-ss-pod
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: dumpster-ss-pod-container
+        image: gutek/dumpster:v1
+        ports:
+        - containerPort: 80

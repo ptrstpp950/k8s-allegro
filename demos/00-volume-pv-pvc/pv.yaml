@@ -1,0 +1,14 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: simple-pv-volume
+  labels:
+    workshop: "true"
+spec:
+  storageClassName: simple-storage
+  capacity:
+    storage: 10Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /tmp/simpehtml

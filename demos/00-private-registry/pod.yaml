@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dumpster-private
+  labels:
+    name: dumpster-private-app
+spec:
+  containers:
+  - name: dumpster-pod-container
+    image: devszkolak8s.azurecr.io/stapp/dumpster:v1
+    ports:
+    - containerPort: 8080
+  imagePullSecrets:
+  - name: regcred

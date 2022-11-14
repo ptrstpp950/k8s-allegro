@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: dumpster-ds
+  namespace: kube-system
+  labels:
+    workshop: "true"
+    app: dumpser
+spec:
+  selector:
+    matchLabels:
+      app: dumpster-ds-pos
+  template:
+    metadata:
+      labels:
+        app: dumpster-ds-pos
+        workshop: "true"
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: dumpster-ds-pod-container
+        image: gutek/dumpser:v1
+      terminationGracePeriodSeconds: 30

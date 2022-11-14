@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dumpster-command-job
+spec:
+  template:
+    metadata:
+      labels:
+          workshop: "true"
+          app: dumpster-command-job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: dumpser-command-job-container
+          image: busybox
+          command: ["/bin/sh"]
+          args: ["-c", "echo \"$(date) job starting\"; sleep 60; echo \"$(date) job finished successfully\""]

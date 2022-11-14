@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dumpster-pod-one
+  labels:
+    workshop: "true"
+    app: dumpster
+spec:
+  containers:
+  - name: dumpster-pod-one-container
+    image: gutek/dumpster:v1
+    ports:
+    - containerPort: 8080

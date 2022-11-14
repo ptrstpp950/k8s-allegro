@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2019-03-02T13:00:33Z"
+  generateName: dumpster-8699cb64b7-
+  labels:
+    k8s-app: dumpster
+    pod-template-hash: 8699cb64b7
+  name: dumpster-8699cb64b7-vnvsq
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: dumpster-8699cb64b7
+    uid: 2a51f2b4-3ceb-11e9-85dd-080027d7cbf3
+  resourceVersion: "9831"
+  selfLink: /api/v1/namespaces/default/pods/dumpster-8699cb64b7-vnvsq
+  uid: 2a726acf-3ceb-11e9-85dd-080027d7cbf3
+spec:
+  containers:
+  - image: gutek/dumpser:v1
+    imagePullPolicy: IfNotPresent
+    name: dumpster
+    resources: {}
+    securityContext:
+      privileged: false
+      procMount: Default
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-g9s8w
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: default-token-g9s8w
+    secret:
+      defaultMode: 420
+      secretName: default-token-g9s8w
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2019-03-02T13:00:34Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2019-03-02T13:01:23Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2019-03-02T13:01:23Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2019-03-02T13:00:34Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://2de60771a739fbb6c867c8f8cc542a101a0de6eea58ddb3dee02af4c6bf9237f
+    image: gutek/dumpser:v1
+    imageID: docker-pullable://gutek/dumpster@sha256:4b917e8b457cc64adfeeb7eb694003fd4f01408e99822ffc6639ac2f4618405c
+    lastState: {}
+    name: dumpster
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: "2019-03-02T13:01:22Z"
+  hostIP: 10.0.2.15
+  phase: Running
+  podIP: 172.17.0.10
+  qosClass: BestEffort
+  startTime: "2019-03-02T13:00:34Z"

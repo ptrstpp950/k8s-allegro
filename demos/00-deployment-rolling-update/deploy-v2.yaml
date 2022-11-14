@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: dumpster-dep
+  labels:
+    workshop: "true"
+    app: dumpster
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge : 1
+      maxUnavailable: 1
+  replicas: 5
+  minReadySeconds: 4
+  selector:
+    matchLabels:
+      workshop: "true"
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+        workshop: "true"
+    spec:
+      containers:
+      - name: dumpster-pod-container
+        image: gutek/dumpster:v2
+        ports:
+        - containerPort: 8080
