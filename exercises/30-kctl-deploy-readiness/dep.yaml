@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: dumpster-read-pod-container
-        image: gutek/dumpser:v2
+        image: gutek/dumpster:v2
         ports:
         - containerPort: 8080
 ---
