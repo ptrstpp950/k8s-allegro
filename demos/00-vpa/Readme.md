@@ -38,9 +38,16 @@ k apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/vertic
 # run describe
 k describe pod hamster-<TAB><TAB>
 
+# run watch for VPA in separate window
+k get vpa -w
+
 # check pods with
 k get --watch pods -l app=hamster
 
 # wait a few minutes and run describe again on different pod
 k describe pod hamster-<TAB><TAB>
+
+# clean up with
+kubens default
+k delete ns vpa-demo
 ```
