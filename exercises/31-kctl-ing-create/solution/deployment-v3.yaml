@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dumpster-dep-v3
+  labels:
+    workshop: "true"
+    app: dumpster-v3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      workshop: "true"
+      app: api-v3
+  template:
+    metadata:
+      labels:
+        workshop: "true"
+        app: api-v3
+    spec:
+      containers:
+      - name: dumpster-pod-container
+        image: gutek/dumpster:v3
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:  svc-v3
+  labels:
+    workshop: "true"
+spec:
+  type: ClusterIP
+  selector:
+    app: api-v3
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080

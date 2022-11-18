@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  dumpster-svc
+  labels:
+    workshop: "true"
+spec:
+  type: ClusterIP
+  selector:
+    app: dumpster
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080

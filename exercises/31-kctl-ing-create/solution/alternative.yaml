@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloapp-fanout-echo-svc
+spec:
+  selector:
+    app: helloapp-fanout-echo-dep
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloapp-fanout-echo-dep
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: helloapp-fanout-echo-dep
+  template:
+    metadata:
+      labels:
+        app: helloapp-fanout-echo-dep
+    spec:
+      containers:
+      - name: helloapp-fanout-echo-dep
+        image: gcr.io/google_containers/echoserver:1.4
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloapp-fanout-host-svc
+spec:
+  selector:
+    app: helloapp-fanout-host-dep
+  ports:
+  - port: 80
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloapp-fanout-host-dep
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: helloapp-fanout-host-dep
+  template:
+    metadata:
+      labels:
+        app: helloapp-fanout-host-dep
+    spec:
+      containers:
+      - name: helloapp-fanout-host-dep
+        image: poznajkubernetes/helloapp:svc
+        ports:
+        - containerPort: 8080
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: fanout-ing
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /host/?(.*)
+        backend:
+          serviceName: helloapp-fanout-host-svc
+          servicePort: 80
+      - path: /echo/?(.*)
+        backend:
+          serviceName: helloapp-fanout-echo-svc
+          servicePort: 8080
